@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block title %}
-главная страница
+Главная страница
 {% endblock %}
-
 
 {% block content %}
 <div id="carouselExampleControls" class="carousel slide bg-primary" data-bs-ride="carousel">
@@ -58,13 +57,13 @@
       </div>
     </form>
   </div>
-  <div class = "col">
+  <div class="col">
     {% for adv in advertisements %}
     <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
       <div class="row g-0">
         <div class="col-md-4">
           <a href="advertisement.html" class="nav-link">
-            <img src="img/adv.png" class="img-fluid rounded-start" alt="Card title">
+            <img src="{% if adv.image %}{{ adv.image.url }}{% else %}{% static 'img/adv.png' %}{% endif %}" class="img-fluid rounded-start" alt="Card title">
           </a>
         </div>
         <div class="col-md-8">
@@ -72,12 +71,12 @@
             <h5 class="card-title">
               <a href="advertisement.html" class="nav-link"><strong>{{ adv.title }}</strong></a>
             </h5>
-            <a href="advertisement.html" class="nav-link"><strong></strong>
+            <a href="advertisement.html" class="nav-link">
               <p class="card-text">
-               {{ adv.description }}
+                {{ adv.description }}
               </p>
-              <span>Автор: Никнейм автора объявления</span>
-              <p class="card-text"><small class="text-muted">Размещено: здесь должна стоять дата</small></p>
+              <span>Автор: {{ adv.user }}</span>
+              <p class="card-text"><small class="text-muted">Размещено: {{ adv.created_at }}</small></p>
             </a>
           </div>
         </div>
@@ -116,4 +115,5 @@
       </form>
     </div>
   </nav>
-</footer>{% endblock %}
+</footer>
+{% endblock %}
